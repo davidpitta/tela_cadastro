@@ -1,7 +1,5 @@
-import mysql.connector
+from banco import *
 
-
-cnx = mysql.connector.connect(host='localhost', user='root', password='David21*',database='cadastro')
 
 #CRUD
 # Inserir informacoes
