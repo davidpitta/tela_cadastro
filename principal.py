@@ -51,14 +51,13 @@ def inserir():
     telefone = e_telefone.get()
     cidade = e_cidade.get()
 
-    dta_nasc_atual = datetime.strptime(dta_nasc, "%m/%d/%y").strftime("%Y-%m-%d")
+    dta_nasc_atual = datetime.strptime(dta_nasc, "%d/%m/%Y")
 
-    lista = [nome, dta_nasc_atual, telefone, cidade]
 
     if nome == '':
         messagebox.showerror('Erro', 'O nome não pode ser vazio')
     else:
-        inserir_info(lista)
+        inserir_info(nome, dta_nasc_atual, telefone, cidade)
         messagebox.showinfo('Sucesso', 'Os dados foram inseridos com sucesso')
 
         e_nome.delete(0, 'end')
@@ -86,8 +85,11 @@ def atualizar():
         e_telefone.delete(0, 'end')
         e_cidade.delete(0, 'end')
 
+
+        dt = '{}/{}/{}'.format(tree_lista[2][8:10], tree_lista[2][5:7], tree_lista[2][0:4])
+
         e_nome.insert(0, tree_lista[1])
-        e_cal.insert(0, tree_lista[2])
+        e_cal.insert(0, dt)
         e_telefone.insert(0, tree_lista[3])
         e_cidade.insert(0, tree_lista[4])
 
@@ -98,14 +100,12 @@ def atualizar():
             telefone = e_telefone.get()
             cidade = e_cidade.get()
 
-            dta_nasc_atual = datetime.strptime(dta_nasc, "%m/%d/%y").strftime("%Y-%m-%d")
-
-            lista = [nome, dta_nasc_atual, telefone, cidade, valor_id]
+            dta_nasc_atual = datetime.strptime(dta_nasc, "%d/%m/%Y")
 
             if nome == '':
                 messagebox.showerror('Erro', 'O nome não pode ser vazio')
             else:
-                atualizar_info(lista)
+                atualizar_info(nome, dta_nasc_atual, telefone, cidade, valor_id)
                 messagebox.showinfo('Sucesso', 'Os dados foram atualizados com sucesso')
 
                 e_nome.delete(0, 'end')
@@ -163,7 +163,7 @@ e_telefone.place(x=15, y=100)
 #data de nascimento
 l_cal = Label(frame_baixo,text='Data de Nascimento *', anchor=NW, font=('Ivy 10 bold'), bg=co1, fg = co4, relief='flat')
 l_cal.place(x=10, y=130)
-e_cal = DateEntry(frame_baixo, width=12, bg = 'darkblue', foreground='white', borderwidth=2)
+e_cal = DateEntry(frame_baixo, locale='pt_BR', date_pattern='dd/mm/yyyy', width=12, bg = 'darkblue', foreground='white', borderwidth=2)
 e_cal.place(x=15, y=160)
 
 #cidade
